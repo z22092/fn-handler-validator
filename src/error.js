@@ -1,28 +1,27 @@
 
-
 /**
- * @typedef {Object} ValidatorError 
+ * @typedef {Object} ValidatorError
  * @property {String} name Name of Error Object,
  * @property {String} message Message Of Error Object,
  * @property {String} stack Optional Stack,
  * @property {Object} data Complementary Date of Error
- * 
+ *
  * @class ValidatorError
  * @extends Error
  * @param {String} message Message to show in throw error
  * @param {Array<Object>} data Complementary data Array
  * @return Parsed error object
- * 
- * @example 
+ *
+ * @example
  * const newError = new ValidatorError(
  *          'Invalid type in position "X"',
- *          [{ 
- *            message: 'Item must "a" be a Number', 
- *            ype: 'Number', 
- *            etc: true 
+ *          [{
+ *            message: 'Item must "a" be a Number',
+ *            ype: 'Number',
+ *            etc: true
  *           }])
  * throw newError
- * 
+ *
  * // Show in terminal =>
  * `
  * ValidatorError: Invalid type in position "X" -
@@ -41,11 +40,11 @@
  * `
  */
 class ValidatorError extends Error {
-  constructor(message, data) {
+  constructor (message, data) {
     const msg = data.map(({ message }) => '\n\t' + message).join('');
     super(`${message} - ${msg}`);
     this.data = data;
   }
-};
+}
 
 module.exports = ValidatorError;

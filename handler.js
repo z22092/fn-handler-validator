@@ -1,20 +1,19 @@
 const Validator = require('./src/validator');
 
-
-/** 
+/**
  * @typedef {import('fastest-validator').ValidationRuleObject} ValidationRuleObject
- * 
+ *
  * @class HandlerValidator
- * @extends {Validator} 
+ * @extends {Validator}
  * @param {Function} fn - Function to be handled
  * @param {Array<ValidationRuleObject>|Object.<Number, ValidationRuleObject>} schema - array or object Schema
  * @return {Proxy} a Handled function
- * @example 
- * 
+ * @example
+ *
  * function test(a, b, c) {
  *     return a + b + c;
  * };
- * 
+ *
  * const schema = [
  *     { type: 'number', integer: true, positive: true, convert: true },
  *     { type: 'number', integer: true, positive: true, default: 10 },
@@ -22,7 +21,7 @@ const Validator = require('./src/validator');
  * ];
  * const handledFunction = new HandlerValidator(test, schema);
  * console.log(handledFunction("10")); // {0: 10, 1: 10} result = 20
- * 
+ *
  * const schema = {
  *     '1': { type: 'number', integer: true, positive: true },
  *     '2': { type: 'number', integer: true, positive: true, default: 10 }
@@ -32,13 +31,12 @@ const Validator = require('./src/validator');
  */
 
 class HandlerValidator extends Validator {
-  constructor(fn, schema) {
-    if (typeof fn !== 'function')
-      throw new TypeError(`The argument in position '0' must be a function, received type of ${typeof fn}`);
+  constructor (fn, schema) {
+    if (typeof fn !== 'function') { throw new TypeError(`The argument in position '0' must be a function, received type of ${typeof fn}`); }
 
     const validator = super(schema);
 
-    function apply(fn, thisArg, argArr) {
+    function apply (fn, thisArg, argArr) {
       const argObj = { ...argArr };
 
       validator(argObj);
@@ -50,10 +48,10 @@ class HandlerValidator extends Validator {
       });
 
       return fn(...parsedArg);
-    };
+    }
 
     return new Proxy(fn, { apply });
   }
-};
+}
 
 module.exports = HandlerValidator;

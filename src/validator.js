@@ -1,18 +1,18 @@
 
-const fastestValidator = require("fastest-validator");
-const ValidatorError = require("./error");
+const fastestValidator = require('fastest-validator');
+const ValidatorError = require('./error');
 
-/** 
- * 
+/**
+ *
  * @typedef {import('fastest-validator').ValidationRuleObject} ValidationRuleObject
  * @typedef {import('fastest-validator').CheckerFunction} CheckerFunction
- * 
+ *
  * @class Validator
  * @extends {fastestValidator} - fastest-validator
  * @param {Array<ValidationRuleObject>|Object.<Number, ValidationRuleObject>} props
  * @returns {CheckerFunction} - builded validator function
- * 
- * @example 
+ *
+ * @example
  * const schema = {
  *     '0': [
  *       {
@@ -38,16 +38,16 @@ const ValidatorError = require("./error");
  *     },
  * }
  * const validator = new Validator(schema)
- * 
+ *
  * console.log(validator({'0': 'a' '1': 1}))
- * // console -> 
+ * // console ->
  * true
- * 
+ *
  * console.log(validator({'0': 'a' '1': -1}))
- * // console -> 
+ * // console ->
  * `
- * ValidatorError: invalid args - 
- * 	   The argument in position '1' field must be a positive number.
+ * ValidatorError: invalid args -
+ *    The argument in position '1' field must be a positive number.
  *          at Validator.validateHandle (/home/jefferson/codes/projects/javascript/fn-handler-validator/src/validator.js:90:13)
  *          at Object.<anonymous> (/home/jefferson/codes/projects/javascript/fn-handler-validator/src/validator.js:124:1)
  *          at Module._compile (node:internal/modules/cjs/loader:1092:14)
@@ -68,14 +68,11 @@ const ValidatorError = require("./error");
  * `
  */
 class Validator extends fastestValidator {
-
-  constructor(props) {
+  constructor (props) {
     super();
-    if (!props)
-      props = { '0': { type: 'any', optional: true } };
+    if (!props) { props = { 0: { type: 'any', optional: true } }; }
 
-    if (props instanceof Object)
-      this.checkObj(props);
+    if (props instanceof Object) { this.checkObj(props); }
 
     Object.keys(this.messages).forEach(key => {
       this.messages[key] = this.messages[key].replace('The ', 'The argument in position ');
@@ -87,9 +84,9 @@ class Validator extends fastestValidator {
       props: { ...props }
     });
     return this.validateHandle.bind(this, checker);
-  };
+  }
 
-  checkObj(props) {
+  checkObj (props) {
     const schema = {
       $$root: true,
       type: 'array',
@@ -101,24 +98,23 @@ class Validator extends fastestValidator {
     const keys = Object.keys(props);
     const check = this.validate(keys, schema);
 
-    if (check.length)
-      throw new ValidatorError('The object must have an enumerated key', check);
+    if (check.length) { throw new ValidatorError('The object must have an enumerated key', check); }
 
     const keyLength = keys.length;
     const max = Math.max(...keys);
 
-    if (max > keyLength)
-      for (let i = 0; i < max; i++)
-        if (!props[i])
-          props[i] = { type: 'any', optional: true, nullable: true };
+    if (max > keyLength) {
+      for (let i = 0; i < max; i++) {
+        if (!props[i]) { props[i] = { type: 'any', optional: true, nullable: true }; }
+      }
+    }
   }
 
-  validateHandle(checker, ...argArr) {
+  validateHandle (checker, ...argArr) {
     const isValid = checker(...argArr);
-    if (isValid.length)
-      throw new ValidatorError('invalid args', isValid);
+    if (isValid.length) { throw new ValidatorError('invalid args', isValid); }
     return isValid;
   }
-};
+}
 
 module.exports = Validator;

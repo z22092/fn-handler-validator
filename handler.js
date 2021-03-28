@@ -4,7 +4,6 @@ const Validator = require('./src/validator');
  * @typedef {import('fastest-validator').ValidationRuleObject} ValidationRuleObject
  *
  * @class HandlerValidator
- * @constructor
  * @extends {Validator}
  * @param {Function} fn - Function to be handled
  * @param {Array<ValidationRuleObject>|Object.<Number, ValidationRuleObject>} schema - array or object Schema

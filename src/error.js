@@ -46,6 +46,7 @@ class ValidatorError extends Error {
     this.data = data;
   }
 }
+
 /**
  * @module ValidatorError
  */

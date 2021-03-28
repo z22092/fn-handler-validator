@@ -116,7 +116,9 @@ class Validator extends fastestValidator {
     return isValid;
   }
 }
+
 /**
  * @module Validator
  */
+
 module.exports = Validator;

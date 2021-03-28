@@ -29,5 +29,14 @@
     "lint-staged": "^10.5.4",
     "semistandard": "^16.0.0",
     "typescript": "^4.2.3"
-  }
+  },
+  "tags": [
+    "fastest-validator",
+    "validation",
+    "validators",
+    "validate",
+    "schema",
+    "handler",
+    "validator"
+  ]
 }

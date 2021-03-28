@@ -11,4 +11,6 @@ if (!satisfies(process.version, version)) {
   process.exit(1);
 }
 
-module.exports = require('./handler');
+const HandledFunction = require('./handler');
+
+module.exports = HandledFunction;

@@ -1,4 +1,4 @@
-
+export = ValidatorError;
 /**
  * @typedef {Object} ValidatorError
  * @property {String} name Name of Error Object,
@@ -39,14 +39,28 @@
  * }
  * `
  */
-class ValidatorError extends Error {
-  constructor (message, data) {
-    const msg = data.map(({ message }) => '\n\t' + message).join('');
-    super(`${message} - ${msg}`);
-    this.data = data;
-  }
+declare class ValidatorError extends Error {
+    constructor(message: any, data: any);
+    data: any;
 }
-/**
- * @module ValidatorError
- */
-module.exports = ValidatorError;
+declare namespace ValidatorError {
+    export { ValidatorError };
+}
+type ValidatorError = {
+    /**
+     * Name of Error Object,
+     */
+    name: string;
+    /**
+     * Message Of Error Object,
+     */
+    message: string;
+    /**
+     * Optional Stack,
+     */
+    stack: string;
+    /**
+     * Complementary Date of Error
+     */
+    data: any;
+};

@@ -6,11 +6,12 @@
   "author": "jefferson venceslau",
   "license": "MIT",
   "dependencies": {
-    "cz": "./node_modules/.bin/cz",
     "fastest-validator": "^1.10.1",
     "semver": "^7.3.5"
   },
   "scripts": {
+    "cz": "npx cz",
+    "tsc": "npx tsc",
     "start": "node index.js"
   },
   "typings": "./index.d.ts",

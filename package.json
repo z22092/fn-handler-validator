@@ -1,6 +1,6 @@
 {
   "name": "fn-handler-validator",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "function params validation",
   "main": "index.js",
   "author": "jefferson venceslau",

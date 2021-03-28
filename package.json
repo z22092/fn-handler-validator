@@ -1,7 +1,10 @@
 {
   "name": "fn-handler-validator",
   "version": "0.0.5",
-  "description": "function params validation",
+  "deprecated": false,
+  "description": "A very simple validation utility that can be used as a helper when validating function arguments, used only fastest-validator and JavaScript Vanilla;",
+  "allow-same-version": true,
+  "git-tag-version": true,
   "main": "index.js",
   "author": "jefferson venceslau",
   "license": "MIT",

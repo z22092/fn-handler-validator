@@ -1,7 +1,4 @@
-
-const fastestValidator = require('fastest-validator');
-const ValidatorError = require('./error');
-
+export = Validator;
 /**
  *
  * @typedef {import('fastest-validator').ValidationRuleObject} ValidationRuleObject
@@ -67,58 +64,13 @@ const ValidatorError = require('./error');
  * }
  * `
  */
-class Validator extends fastestValidator {
-  constructor (props) {
-    super();
-    if (!props) { props = { 0: { type: 'any', optional: true } }; }
-
-    if (props instanceof Object) { this.checkObj(props); }
-
-    Object.keys(this.messages).forEach(key => {
-      this.messages[key] = this.messages[key].replace('The ', 'The argument in position ');
-    });
-
-    const checker = this.compile({
-      $$root: true,
-      type: 'object',
-      props: { ...props }
-    });
-    return this.validateHandle.bind(this, checker);
-  }
-
-  checkObj (props) {
-    const schema = {
-      $$root: true,
-      type: 'array',
-      items: {
-        type: 'number', convert: true, integer: true
-      }
-    };
-
-    const keys = Object.keys(props);
-    const check = this.validate(keys, schema);
-
-    if (check.length) { throw new ValidatorError('The object must have an enumerated key', check); }
-
-    const keyLength = keys.length;
-    const max = Math.max(...keys);
-
-    if (max > keyLength) {
-      for (let i = 0; i < max; i++) {
-        if (!props[i]) { props[i] = { type: 'any', optional: true, nullable: true }; }
-      }
-    }
-  }
-
-  validateHandle (checker, ...argArr) {
-    const isValid = checker(...argArr);
-    if (isValid.length) { throw new ValidatorError('invalid args', isValid); }
-    return isValid;
-  }
+declare class Validator {
+    constructor(props: any);
+    checkObj(props: any): void;
+    validateHandle(checker: any, ...argArr: any[]): any;
 }
-
-/**
- * @module Validator
- */
-
-module.exports = Validator;
+declare namespace Validator {
+    export { ValidationRuleObject, CheckerFunction };
+}
+type ValidationRuleObject = import('fastest-validator').ValidationRuleObject;
+type CheckerFunction = import('fastest-validator').CheckerFunction;

@@ -77,5 +77,19 @@ const HandledFunction = require('../index');
   }
 
   const handledTest = new HandledFunction(test, schema);
+
   handledTest(['aa'], 1, '10', 'bla', true);
+
+  /** result =>
+   * [Arguments] {
+   *  '0': [ 'aa' ],
+   *  '1': '1',
+   *  '2': 10,
+   *  '3': 'bla',
+   *  '4': true,
+   *  '5': undefined,
+   *  '6': undefined,
+   *  '7': undefined
+   * }
+   */
 }

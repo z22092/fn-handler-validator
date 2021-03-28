@@ -1,6 +1,6 @@
 {
   "name": "fn-handler-validator",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "deprecated": false,
   "description": "A very simple validation utility that can be used as a helper when validating function arguments, used only fastest-validator and JavaScript Vanilla;",
   "allow-same-version": true,

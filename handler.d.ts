@@ -1,4 +1,4 @@
-const Validator = require('./src/validator');
+import Validator = require("./src/validator");
 
 /**
  * @typedef {import('fastest-validator').ValidationRuleObject} ValidationRuleObject
@@ -30,32 +30,12 @@ const Validator = require('./src/validator');
  * console.log(handledFunction(10, 50)); // {0: 10, 1: 50, 2: 10} result = 70
  */
 
-class HandlerValidator extends Validator {
-  constructor (fn, schema) {
-    if (typeof fn !== 'function') { throw new TypeError(`The argument in position '0' must be a function, received type of ${typeof fn}`); }
-
-    const validator = super(schema);
-
-    function apply (fn, thisArg, argArr) {
-      const argObj = { ...argArr };
-
-      validator(argObj);
-
-      const parsedArg = new Array(fn.length);
-
-      Object.entries(argObj).forEach(([index, value]) => {
-        parsedArg[index] = value;
-      });
-
-      return fn(...parsedArg);
-    }
-
-    return new Proxy(fn, { apply });
-  }
+declare class HandlerValidator extends Validator {
+    constructor(fn: Function, schema: Array<Object | String> | Object);
 }
 
-/**
- * @module HandlerValidator
- */
+declare namespace HandlerValidator {
+    export { HandlerValidator };
+}
 
-module.exports = HandlerValidator;
+export = HandlerValidator;
